@@ -35,7 +35,7 @@ SQL.Row.prototype._build = function() {
 		[this.dom.content, td1, td2],
 		[td1, this.dom.selected, this.dom.title]
 	);
-	
+
 	this.enter = this.enter.bind(this);
 	this.changeComment = this.changeComment.bind(this);
 
@@ -232,8 +232,8 @@ SQL.Row.prototype.load = function() { /* put data to expanded form */
 
 SQL.Row.prototype.redraw = function() {
 	var color = this.getColor();
-	this.dom.container.style.backgroundColor = color;
-	this.dom.container.style.borderColor = color;
+	// this.dom.container.style.backgroundColor = color;
+	// this.dom.container.style.borderColor = color;
 	OZ.DOM.removeClass(this.dom.title, "primary");
 	OZ.DOM.removeClass(this.dom.title, "key");
 	if (this.isPrimary()) { OZ.DOM.addClass(this.dom.title, "primary"); }
@@ -318,7 +318,7 @@ SQL.Row.prototype.destroy = function() {
 	while (this.relations.length) {
 		this.owner.owner.removeRelation(this.relations[0]);
 	}
-	for (var i=0;i<this.keys.length;i++){ 
+	for (var i=0;i<this.keys.length;i++){
 		this.keys[i].removeRow(this);
 	}
 }
@@ -339,10 +339,10 @@ SQL.Row.prototype.toXML = function() {
 	if (this.data.def || this.data.def === null) {
 		var q = elm.getAttribute("quote");
 		var d = this.data.def;
-		if (d === null) { 
-			d = "NULL"; 
-		} else if (d != "CURRENT_TIMESTAMP") { 
-			d = q+d+q; 
+		if (d === null) {
+			d = "NULL";
+		} else if (d != "CURRENT_TIMESTAMP") {
+			d = q+d+q;
 		}
 		xml += "<default>"+SQL.escape(d)+"</default>";
 	}
@@ -353,8 +353,8 @@ SQL.Row.prototype.toXML = function() {
 		xml += '<relation table="'+r.row1.owner.getTitle()+'" row="'+r.row1.getTitle()+'" />\n';
 	}
 
-	if (this.data.comment) { 
-		xml += "<comment>"+SQL.escape(this.data.comment)+"</comment>\n"; 
+	if (this.data.comment) {
+		xml += "<comment>"+SQL.escape(this.data.comment)+"</comment>\n";
 	}
 
 	xml += "</row>\n";
@@ -387,7 +387,7 @@ SQL.Row.prototype.fromXML = function(node) {
 
 	var elm = DATATYPES.getElementsByTagName("type")[obj.type];
 	var d = node.getElementsByTagName("default");
-	if (d.length && d[0].firstChild) { 
+	if (d.length && d[0].firstChild) {
 		var def = d[0].firstChild.nodeValue;
 		obj.def = def;
 		var q = elm.getAttribute("quote");
@@ -424,7 +424,7 @@ SQL.Row.prototype.isKey = function() {
 }
 
 SQL.Row.prototype.enter = function(e) {
-	if (e.keyCode == 13) { 
+	if (e.keyCode == 13) {
 		this.collapse();
 	}
 }
