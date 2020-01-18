@@ -160,7 +160,8 @@ label, input, select {
 
 #area {
 	position: relative;
-	background: transparent url(../images/back_dim.png);
+	/* background: transparent url(../images/back_dim.png); */
+  background: #EEE;
 	width: 3000px;
 	height: 3000px;
 	opacity: 0.7;
@@ -311,7 +312,6 @@ label, input, select {
 
 .table {
 	position: absolute;
-	padding: 0 6px 6px 6px;
 	cursor: pointer;
 	margin-bottom: 20px;
 	border-radius: 0;
@@ -329,7 +329,10 @@ label, input, select {
 
 .table thead .title {
 	text-align: center;
-	padding: 6px 30px;
+  font-weight: bold;
+  background-color: #333399;
+  padding: 0 0.5rem;
+  color: #FFF;
 }
 
 .table tbody {
@@ -338,7 +341,7 @@ label, input, select {
 }
 
 .table tbody td {
-	padding: 3px;
+	padding: 0 0.5rem;
 	position: relative;
 }
 

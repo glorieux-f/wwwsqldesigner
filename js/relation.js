@@ -7,15 +7,14 @@ SQL.Relation = function(owner, row1, row2) {
 	this.color = "#000";
 	this.hidden = false;
 	this.relationColors = CONFIG.RELATION_COLORS;
-	this.highlighted = null;
 	SQL.Visual.apply(this);
 
 	this.style = SQL.Designer.getOption("style");
 	switch (this.style) {
-		case "material-inspired": 
+		case "material-inspired":
 			this.relationColors = CONFIG.MATERIAL_RELATION_COLORS;
 			break;
-		case "original": 
+		case "original":
 		default:
 			this.relationColors = CONFIG.RELATION_COLORS;
 	}
@@ -33,10 +32,10 @@ SQL.Relation = function(owner, row1, row2) {
 	this.row1.addRelation(this);
 	this.row2.addRelation(this);
 	this.dom = [];
-	
+
 	if (this.owner.vector) {
 		var path = document.createElementNS(this.owner.svgNS, "path");
-		path.setAttribute("stroke", this.color);
+		path.setAttribute("stroke", "#000");
 		path.setAttribute("stroke-width", CONFIG.RELATION_THICKNESS);
 		path.setAttribute("fill", "none");
 		this.owner.dom.svg.appendChild(path);
@@ -53,7 +52,7 @@ SQL.Relation = function(owner, row1, row2) {
 			this.owner.dom.container.appendChild(div);
 		}
 	}
-	
+
 	this.redraw();
 }
 SQL.Relation._counter = 0;
@@ -61,22 +60,6 @@ SQL.Relation.prototype = Object.create(SQL.Visual.prototype);
 
 SQL.Relation.prototype.getColor = function() {
 	return this.color;
-}
-
-SQL.Relation.prototype.highlight = function() {
-	if (this.highlighted) { return; }
-	this.highlighted = true;
-	this.dom[0].setAttribute("stroke", CONFIG.RELATION_HIGHLIGHTED_COLOR);
-	this.dom[0].setAttribute("stroke-width", CONFIG.RELATION_HIGHLIGHTED_THICKNESS);
-	this.redraw();
-}
-
-SQL.Relation.prototype.dehighlight = function() {
-	if (!this.highlighted) { return; }
-	this.highlighted = false;
-	this.dom[0].setAttribute("stroke", this.color);
-	this.dom[0].setAttribute("stroke-width", CONFIG.RELATION_THICKNESS);
-	this.redraw();
 }
 
 SQL.Relation.prototype.show = function() {
@@ -122,11 +105,11 @@ SQL.Relation.prototype.redrawSide = function(p1, p2, x) {
 		this.dom[0].style.left = Math.min(x,p1[0])+"px";
 		this.dom[0].style.top = p1[1]+"px";
 		this.dom[0].style.width = Math.abs(p1[0]-x)+"px";
-		
+
 		this.dom[1].style.left = x+"px";
 		this.dom[1].style.top = Math.min(p1[1],p2[1]) + "px";
 		this.dom[1].style.height = (Math.abs(p1[1] - p2[1])+CONFIG.RELATION_THICKNESS)+"px";
-		
+
 		this.dom[2].style.left = Math.min(x,p2[0])+"px";
 		this.dom[2].style.top = p2[1]+"px";
 		this.dom[2].style.width = Math.abs(p2[0]-x)+"px";
@@ -144,13 +127,13 @@ SQL.Relation.prototype.redraw = function() { /* draw connector */
 	var r2 = l2 + t2.offsetWidth;
 	var t1 = t1.offsetTop + this.row1.dom.container.offsetTop + Math.round(this.row1.dom.container.offsetHeight/2);
 	var t2 = t2.offsetTop + this.row2.dom.container.offsetTop + Math.round(this.row2.dom.container.offsetHeight/2);
-	
+
 	if (this.row1.owner.selected) { t1++; l1++; r1--; }
 	if (this.row2.owner.selected) { t2++; l2++; r2--; }
-	
+
 	var p1 = [0,0];
 	var p2 = [0,0];
-	
+
 	if (r1 < l2 || r2 < l1) { /* between tables */
 		if (Math.abs(r1 - l2) < Math.abs(r2 - l1)) {
 			p1 = [r1,t1];
