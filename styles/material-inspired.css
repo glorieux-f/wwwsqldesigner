@@ -321,6 +321,7 @@ label, input, select {
 
 .table table {
 	border-collapse: collapse;
+	min-width: 6rem;
 }
 
 .table.selected {
